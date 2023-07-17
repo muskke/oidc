@@ -11,6 +11,7 @@ import (
 	"github.com/zitadel/oidc/v2/pkg/client/rp"
 	httphelper "github.com/zitadel/oidc/v2/pkg/http"
 	"github.com/zitadel/oidc/v2/pkg/oidc"
+	"golang.org/x/oauth2"
 )
 
 // XXX: 模拟IAM，同时作为服务端处理sso web、oidc客户端逻辑和作为客户端处理第三方认证（如Github、MinIO、企业微信等）
@@ -66,22 +67,21 @@ func main() {
 		options = append(options, rp.WithJWTProfile(rp.SignerFromKeyPath(JWTSignKeyPath)))
 	}
 
-	// // OAuth2 认证服务器配置
-	// provider, err := rp.NewRelyingPartyOAuth(&oauth2.Config{
-	// 	ClientID:     ClientID,
-	// 	ClientSecret: ClientSecret,
-	// 	Endpoint:     oauth2.Endpoint{AuthURL: "https://github.com/login/oauth/authorize", TokenURL: "https://github.com/login/oauth/access_token"},
-	// 	RedirectURL:  redirectURI,
-	// 	Scopes:       []string{"repo", "repo_deployment"},
-	// }, options...)
+	// OAuth2 认证服务器配置
+	provider, err := rp.NewRelyingPartyOAuth(&oauth2.Config{
+		ClientID:     ClientID,
+		ClientSecret: ClientSecret,
+		Endpoint:     oauth2.Endpoint{AuthURL: "https://github.com/login/oauth/authorize", TokenURL: "https://github.com/login/oauth/access_token"},
+		RedirectURL:  redirectURI,
+		Scopes:       []string{"repo", "repo_deployment"},
+	}, options...)
 
-	// OIDC 认证服务发现配置
-	provider, err := rp.NewRelyingPartyOIDC(Issuer, ClientID, ClientSecret, redirectURI, Scopes, options...)
+	// // OIDC 认证服务发现配置
+	// provider, err := rp.NewRelyingPartyOIDC(Issuer, ClientID, ClientSecret, redirectURI, Scopes, options...)
 	if err != nil {
 		fmt.Printf("error creating provider %s \n", err.Error())
 		os.Exit(1)
 	}
-	provider.GetRevokeEndpoint()
 
 	// 用户登录客户端认证请求
 	http.Handle("/login", rp.AuthURLHandler(func() string {

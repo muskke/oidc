@@ -1,0 +1,41 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug client",
+      "type": "go",
+      "request": "launch",
+      "mode": "auto",
+      "program": "${workspaceFolder}/sso/third_auth/client/client.go",
+      "cwd": "${workspaceFolder}",
+      "env": {},
+      "args": [
+        
+      ]
+    },
+    {
+      "name": "Debug server",
+      "type": "go",
+      "request": "launch",
+      "mode": "auto",
+      "program": "${workspaceFolder}/sso/third_auth/server/server.go",
+      "cwd": "${workspaceFolder}",
+      "env": {},
+      "args": [
+        
+      ]
+    },
+    {
+      "name": "Debug main",
+      "type": "go",
+      "request": "launch",
+      "mode": "auto",
+      "program": "${workspaceFolder}/sso/main.go",
+      "cwd": "${workspaceFolder}",
+      "env": {},
+      "args": [
+        
+      ]
+    }
+  ]
+}
