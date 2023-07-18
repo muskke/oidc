@@ -27,7 +27,7 @@ var (
 	// 客户端在服务端注册的ClientID
 	ClientID = "web"
 	// 客户端在服务端注册的ClientSecret
-	ClientSecret = "secret"
+	ClientSecret = ""
 	// JWT签名文件路径
 	JWTSignKeyPath = ""
 	// 授权范围

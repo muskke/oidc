@@ -83,7 +83,7 @@ func main() {
 	storage := storage.NewMultiStorage(issuers)
 
 	// 基于存储接口创建OpenID供应商接口
-	provider, err := newDynamicOP(ctx, storage.(op.Storage), CryptoKey)
+	provider, err := newDynamicOP(ctx, storage, CryptoKey)
 	if err != nil {
 		log.Fatal(err)
 	}
